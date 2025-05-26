@@ -1,0 +1,33 @@
+<div class="navbar bg-base-100 shadow-sm">
+    <div class="navbar-start">
+        <a class="btn btn-ghost text-xl">daisyUI</a>
+    </div>
+    <div class="navbar-end">
+        <div class="dropdown">
+            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                <i class="bi bi-list"></i>
+            </div>
+            <ul 
+                tabindex="0"
+                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-32 p-2 shadow items-center"
+                >
+                <li><a>Home</a></li>
+            </ul>
+        </div>
+
+        <ul class="menu menu-horizontal items-center px-1 hidden lg:flex">
+            <li><a>Home</a></li>
+            @if (authService.authStatus() === 'authenticated') {
+            <li>
+                <a class="btn btn-warning" (click)="authService.logout()">
+                   <i class="bi bi-box-arrow-in-left"></i> Logout</a>
+            </li>
+            }@else {
+            <li>
+                <a class="btn btn-secondary" [routerLink]="['./auth/login']">
+                   <i class="bi bi-box-arrow-in-right"></i> Login</a>
+            </li>
+            }
+        </ul>
+    </div>
+</div>

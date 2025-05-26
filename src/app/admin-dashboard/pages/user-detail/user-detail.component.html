@@ -1,0 +1,98 @@
+<h1 class="text-2xl font-bold text-secondary">
+    {{ user().first_name }} {{ user().last_name }}
+</h1>
+
+<div class="divider divider-secondary"></div>
+
+<form [formGroup]="userForm" class="grid grid-cols-1 sm:grid-cols-2 gap-4"
+(ngSubmit)="onSubmit()">
+
+<div class="flex flex-col gap-4">
+    <h2>Datos del Usuario</h2>
+    
+    <label  class="floating-label">
+        <span>First Name</span>
+        <input type="text" placeholder="First Name" 
+        class="input input-md input-bordered w-full" 
+        formControlName="first_name">
+    </label>
+
+    <label class="floating-label">
+        <span>Last Name</span>
+        <input type="text" placeholder="Last Name" 
+        class="input input-md input-bordered w-full" 
+        formControlName="last_name">
+    </label>
+
+    <label class="floating-label">
+        <span>Email</span>
+        <input type="email" placeholder="Email" 
+        class="input input-bordered w-full" 
+        formControlName="email">
+    </label>
+
+    <label class="floating-label">
+        <span>Telephone</span>
+        <input type="text" placeholder="Telephone" 
+        class="input input-bordered w-full" 
+        formControlName="telephone"/>
+    </label>
+
+    @if (user().id === 'new') {
+    <label class="floating-label">
+        <span>Password</span>
+        <input type="text" placeholder="Password" 
+        class="input input-bordered w-full" 
+        formControlName="password"/>
+    </label>
+    }
+
+    <label class="floating-label">
+        <span>Role</span>
+    <select class="select select-bordered w-full" formControlName="role_id">
+            <option [value]="0"> Seleccionar un Role</option>
+            @for (role of rolesResource.value()?.data?.roles; track role.id) {
+            <option [value]="role.id">{{ role.name }}</option>
+            }   
+    </select>
+    </label>
+</div>
+
+  <div class="flex flex-col gap-2 h-[500px]">
+    <div class="flex items-center justify-center">
+        @if (!previewIMG) {
+         <img class="object-contain animate-fadeIn h-[300px]"
+             [src]="user().id | userImage"
+             [alt]="user().avatar"
+             width="500"
+             height="500"
+             priority
+             /> 
+        }@else {
+             <img class="object-contain animate-fadeIn h-[300px]"
+             [src]="previewURL"
+             [alt]="user().avatar"
+             width="500"
+             height="500"
+             priority
+             /> 
+        }
+    </div>
+
+    <input 
+            type="file" 
+            accept="image/*"
+            class="file-input file-input-bordered w-full mt-4" 
+            formControlName="avatar"
+            (change)="onFilesChange($event)"
+            />
+  </div>    
+  <div class="col-span-2">
+    <div class="flex justify-center h-12">
+            <button class="btn btn-secondary px-20 text-lg" type="submit">
+                <!-- <span class="loading loading-spinner loading-sm"></span> -->
+                Guardar
+            </button>  
+    </div>
+  </div>
+</form>

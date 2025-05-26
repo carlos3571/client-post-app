@@ -1,0 +1,58 @@
+
+<div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
+  <table class="table text-center">
+    <!-- head -->
+    <thead>
+      <tr >
+        <th>#</th>
+        <th>FullName</th>
+        <th>Email</th>
+        <th>Telephone</th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for ( user of users(); track user.id ; let i = $index ) {
+      <!-- row 1 -->
+      <tr>
+        <th> {{ i +1}}</th>
+        <td>
+          <div class="flex items-center gap-3 justify-center w-full align-middle">
+            <div class="avatar">
+              <div class="mask mask-squircle h-12 w-12">
+                <img
+                  src="http://localhost:3000/api/users/avatar/{{ user.id }}"/>
+              </div>
+            </div>
+            <div>
+              <div class="font-bold"> {{ user.first_name }} {{ user.last_name }}</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="badge badge-ghost badge-sm">
+            {{ user.email }}
+          </span>
+        </td>
+        <td>
+          <span class="badge badge-ghost badge-sm">
+            {{ user.telephone }}
+          </span>
+        </td>
+        
+        <th>
+          <button class="btn btn-error btn-xs rounded-full py-4 me-3"
+          (click)="emitDeleted(user.id)" >
+            <i class="bi bi-trash text-lg"></i>
+          </button>
+          <a class="btn btn-info btn-xs rounded-full py-4" 
+          [routerLink]="['/dashboard/users', user.id]" >
+            <i class="bi bi-pencil-square text-lg"></i>
+          </a>
+        </th>
+      </tr>
+    }
+    </tbody>
+    <!-- foot -->
+  </table>
+</div>

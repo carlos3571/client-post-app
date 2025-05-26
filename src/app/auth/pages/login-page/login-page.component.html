@@ -1,0 +1,37 @@
+<h1 class="text-2xl font-montserrat font-bold text-secondary text-center mb-2">
+    Login
+</h1>
+<form action="" class="flex flex-col gap-2" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<label class="input validator">
+  <i class="bi bi-envelope opacity-50"></i>
+  <input type="email" placeholder="mail@site.com" required formControlName="email" />
+</label>
+<div class="validator-hint hidden">Enter valid email address</div>
+
+<div class="join">
+  <div class="w-full">
+    <label class="input validator join-item">
+      <i class="bi bi-key opacity-50"></i>
+      <input [type]="type" placeholder="password" required formControlName="password"/>
+    </label>
+    <div class="validator-hint hidden">Enter valid password</div>
+  </div>
+  <a class="btn btn-neutral join-item" (click)="showPassword(type)"> <i [class]="icon"></i></a>
+</div>
+<fieldset class="fieldset bg-slate-100 border-base-300 rounded-box border p-4 text-black text-center w-full">
+  <legend class="fieldset-legend text-black">Login options</legend>
+  <label class="label justify-center">
+    <input type="checkbox" checked="checked" class="checkbox checkbox-secondary"
+    formControlName="rememberMe" />
+    Remember me
+  </label>
+</fieldset>
+<button class="btn btn-secondary" type="submit">Login</button>
+</form>
+
+@if (hasError()) {
+<div role="alert" class="alert alert-error fixed bottom-5 right-5 w-80">
+  <i class="bi bi-x-circle"></i>
+  <span>Error! Veriy the information provided.</span>
+</div>
+}
